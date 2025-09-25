@@ -1,6 +1,6 @@
-from app.views.movies.model import Movie
-from app.views.genres.model import Genre
-from app.views.directors.model import Director
+from app.dao.models.movies_model import Movie
+from app.dao.models.genres_model import Genre
+from app.dao.models.directors_model import Director
 
 genre_1 = Genre(
     name = "action"

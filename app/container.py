@@ -1,13 +1,18 @@
 # Контейнер для создания объектов
-from app.views.directors.model import Director, DirectorSchema
-from app.views.movies.model import Movie, MovieSchema
-from app.views.genres.model import Genre, GenreSchema
+from app.setup_db import db
 
-director_schema = DirectorSchema()
-directors_schema = DirectorSchema(many=True)
+from app.dao.movie import MovieDAO
+from app.services.movie import MovieService
+from app.dao.director import DirectorDAO
+from app.services.director import DirectorService
+from app.dao.genre import GenreDAO
+from app.services.genre import GenreService
 
-movie_schema = MovieSchema()
-movies_schema = MovieSchema(many=True)
+movie_dao = MovieDAO(db.session)
+movie_service = MovieService(movie_dao)
 
-genre_schema = GenreSchema()
-genres_schema = GenreSchema(many=True)
+genre_dao = GenreDAO(db.session)
+genre_service = GenreService(genre_dao)
+
+director_dao = DirectorDAO(db.session)
+director_dao = DirectorService(director_dao)

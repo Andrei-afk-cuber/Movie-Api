@@ -1,7 +1,6 @@
 from flask_restx import Namespace, Resource
-from flask import request
 
-from app.views.genres.model import Genre, GenreSchema
+from app.dao.models.genres_model import Genre, GenreSchema
 from app.setup_db import db
 
 genres_ns = Namespace('genres')

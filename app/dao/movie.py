@@ -1,0 +1,50 @@
+from app.setup_db import db
+from app.dao.models.movies_model import Movie
+# DAO получения фильмов
+class MovieDAO:
+    def __init__(self, session: db.session):
+        self.session = session
+
+    # метод получения всех фильмов
+    def get_all(self, query):
+        director_id = query.get("director_id")
+        genre_id = query.get("genre_id")
+        year = query.get("year")
+
+        movies = db.session.query(Movie)
+
+        if director_id:
+            movies = movies.filter(Movie.director_id==director_id)
+        if genre_id:
+            movies = movies.filter(Movie.genre_id==genre_id)
+        if year:
+            movies = movies.filter(Movie.year==year)
+
+        return movies.all()
+
+    # Метод получения одного фильма
+    def get_one(self, mid):
+        try:
+            movie = self.session.query(Movie).filter(Movie.id == mid).one()
+
+            return movie
+        except Exception as e:
+            return str(e), 400
+
+    # Метод создания фильмов
+    def create(self, movie):
+        with self.session.begin():
+            self.session.add(movie)
+
+    # Метод изменения полной информации о фильме
+    def update(self, movie):
+        self.session.add(movie)
+        self.session.commit()
+
+    # Метод удаления фильма
+    def delete(self, movie):
+        try:
+            self.session.delete(movie)
+            self.session.commit()
+        except Exception as e:
+            return str(e)
