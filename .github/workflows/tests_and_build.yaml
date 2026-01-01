@@ -1,0 +1,4 @@
+name: Tests and build docker image
+on: [push]
+jobs:
+  tests:
