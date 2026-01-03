@@ -11,7 +11,14 @@ class MovieService:
         return movies_schema.dump(self.dao.get_all(data))
 
     def get_one(self, mid):
-        return movie_schema.dump(self.dao.get_one(mid))
+        try:
+            movie = self.dao.get_one(mid)
+            if type(movie) == str:
+                raise TypeError
+
+            return movie_schema.dump(movie)
+        except Exception as e:
+            return str(e), 404
 
     def create(self, data):
         movie = Movie(**data)

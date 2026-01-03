@@ -1,27 +1,19 @@
 from flask_restx import Namespace, Resource
 
-from app.dao.models.genres_model import Genre, GenreSchema
-from app.setup_db import db
+from app.container import genre_service
 
 genres_ns = Namespace('genres')
 
-# Класс для представления всех жанров
+# All genres class
 @genres_ns.route('/')
 class GenresView(Resource):
-    # Метод получения жанров
+    # Get all genres
     def get(self):
-        all_genres = db.session.query(Genre).all()
+        return genre_service.get_all()
 
-        return GenreSchema(many=True).dump(all_genres), 200
-
-# Класс для представления одного пользователя
+# One genre class
 @genres_ns.route('/<int:gid>')
 class GenreView(Resource):
-    # Метод получения жанра
+    # Get genre bu id
     def get(self, gid):
-        try:
-            genre = db.session.query(Genre).filter(Genre.id == gid).one()
-
-            return GenreSchema().dump(genre), 200
-        except Exception as e:
-            return str(e), 400
+        return genre_service.get_one(gid)
