@@ -2,3 +2,24 @@ name: Tests and build docker image
 on: [push]
 jobs:
   tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Install dependiences
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest
+  docker-build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Install dependiences
+        run: pip install -r requirements.txt
+      - name: Docker build
+        run: docker build -t andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+      - name: Docker hub login
+        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login - u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Docker hub push
+        run: docker push andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID
