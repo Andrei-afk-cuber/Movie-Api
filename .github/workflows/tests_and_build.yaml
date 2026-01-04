@@ -20,6 +20,6 @@ jobs:
       - name: Docker build
         run: docker build -t andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
       - name: Docker hub login
-        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login - u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Docker hub push
         run: docker push andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID
