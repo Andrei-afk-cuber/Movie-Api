@@ -1,20 +1,32 @@
 # My mini API
 ## Description
-This API is my homework. I made it using Flask, flask-restx, flask-sqlalchemy and Marshmallow.
+This API is my homework. I made it using Flask, flask-restx, flask-sqlalchemy and Marshmallow. 
+This API is designed to work with interconnected movies, modes, and genres.
 ## Running in IDE
-For clone repository:
+Clone git repository:
 
 `git clone https://github.com/Andrei-afk-cuber/homework_lesson_18.git`
 
-For create virtual environment:
+Create a virtual environment:
 
 `python -m venv .venv`
 
-For install dependencies:
+Install dependencies:
 
 `pip install -r requirements.txt`
 
-For running:
+Run the application:
 
 `python main.py`
 ## Running in Docker
+Build the Docker image:
+
+`docker build -t [IMAGE_NAME] .`
+
+Run the container:
+
+`docker run [IMAGE_NAME]`
+
+Alternatively, pull and run the pre-built image:
+
+`docker run andreilyakh/movie-api`
