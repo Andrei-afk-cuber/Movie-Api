@@ -19,8 +19,15 @@ jobs:
       - name: Install dependiences
         run: pip install -r requirements.txt
       - name: Docker build
-        run: docker build -t andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+        run: |
+          docker build \
+          -t andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID \
+          -t andreilyakh/movie-api:latest \
+          .
+
       - name: Docker hub login
         run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Docker hub push
-        run: docker push andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+        run: |
+          docker push andreilyakh/movie-api:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+          docker push andreilyakh/movie-api:latest
